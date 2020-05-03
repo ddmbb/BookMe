@@ -1,33 +1,44 @@
 "use strict";
 
-const apiKey = "4VbgYq9AdJ0dy9UxCGuhVgRNwewdosWLDcRHWVDh";
-const searchURL = "https://developer.nps.gov/api/v1/parks";
+const apiKey = "hPnejYCjDvhmMhTbYECuUq15682jUtDm";
+const nytURL = "https://api.nytimes.com/svc/books/v3/lists/current/";
 
 function formatQueryParams(params) {
   const queryItems = Object.keys(params).map((key) => `${key}=${params[key]}`);
   return queryItems.join("&");
 }
+function watchForm() {
+  $("#js-list-name").on("click", "button", function () {
+    event.preventDefault();
+    var listName = this.value;
+    getList(listName);
+    /* $("#js-list-name").addClass("hidden"); */
+  });
+}
 
+
+
+/*pulls up individual best sellers lists*/
 function displayResults(responseJson) {
   console.log(responseJson);
   $("#results-list").empty();
-  for (let i = 0; i < responseJson.data.length; i++) {
+  for (let i = 0; i < responseJson.results.books.length; i++) {
     $("#results-list").append(
-      `<li><h3><a href="${responseJson.data[i].url}" target="_blank">${responseJson.data[i].fullName}</a></h3></li>
-      <p>${responseJson.data[i].description}</p>`
+      `<li><h3>${responseJson.results.books[i].title} </h3>
+        <h5> by: ${responseJson.results.books[i].author} </h5>
+        <img src= ${responseJson.results.books[i].book_image} alt="cover">;
+        <br> ${responseJson.results.books[i].description}</li>`
     );
   }
   $("#results").removeClass("hidden");
 }
 
-function getParks(searchTerm, maxResults = 10) {
+function getList(listName) {
   const params = {
-    stateCode: searchTerm,
-    api_key: apiKey,
-    limit: maxResults,
+    "api-key": apiKey,
   };
   const queryString = formatQueryParams(params);
-  const url = searchURL + "?" + queryString;
+  const url = nytURL + listName + ".json?" + queryString;
 
   console.log(url);
 
@@ -45,11 +56,11 @@ function getParks(searchTerm, maxResults = 10) {
 }
 
 function watchForm() {
-  $("form").submit((event) => {
+  $("#js-list-name").on("click", "button", function () {
     event.preventDefault();
-    const searchTerm = $("#js-search-term").val().replace(/\s/g, "%2C%20");
-    const maxResults = $("#js-max-results").val();
-    getParks(searchTerm, maxResults);
+    var listName = this.value;
+    getList(listName);
+    /* $("#js-list-name").addClass("hidden"); */
   });
 }
 
