@@ -8,19 +8,18 @@ function formatQueryParams(params) {
   return queryItems.join("&");
 }
 
-
-$("#results-list").on("click", "li", function () {
+/*$("#results-list").on("click", "li", function () {
   event.preventDefault();
   console.log(isbn);
-  /*$("#js-list-name").addClass("hidden");*/
-});
+  /*$("#js-list-name").addClass("hidden")
+}); */
 
 /*pulls up individual best sellers lists*/
 function displayResults(responseJson) {
   console.log(responseJson);
   $("#results-list").empty();
   for (let i = 0; i < responseJson.results.books.length; i++) {
-    let isbn = responseJson.results.books.primary_isbn;
+    let isbn = responseJson.results.books[i].primary_isbn13;
     $("#results-list").append(
       `<li><img src= ${responseJson.results.books[i].book_image} alt="cover">`
     );
