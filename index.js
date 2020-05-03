@@ -7,29 +7,29 @@ function formatQueryParams(params) {
   const queryItems = Object.keys(params).map((key) => `${key}=${params[key]}`);
   return queryItems.join("&");
 }
-function watchForm() {
-  $("#js-list-name").on("click", "button", function () {
-    event.preventDefault();
-    var listName = this.value;
-    getList(listName);
-    /* $("#js-list-name").addClass("hidden"); */
-  });
-}
 
 
+$("#results-list").on("click", "li", function () {
+  event.preventDefault();
+  console.log(isbn);
+  /*$("#js-list-name").addClass("hidden");*/
+});
 
 /*pulls up individual best sellers lists*/
 function displayResults(responseJson) {
   console.log(responseJson);
   $("#results-list").empty();
   for (let i = 0; i < responseJson.results.books.length; i++) {
+    let isbn = responseJson.results.books.primary_isbn;
     $("#results-list").append(
-      `<li><h3>${responseJson.results.books[i].title} </h3>
-        <h5> by: ${responseJson.results.books[i].author} </h5>
-        <img src= ${responseJson.results.books[i].book_image} alt="cover">;
-        <br> ${responseJson.results.books[i].description}</li>`
+      `<li><img src= ${responseJson.results.books[i].book_image} alt="cover">`
     );
   }
+  $("#results-list").on("click", "li", function () {
+    event.preventDefault();
+    console.log(isbn);
+    /*$("#js-list-name").addClass("hidden");*/
+  });
   $("#results").removeClass("hidden");
 }
 
