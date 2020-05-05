@@ -5,6 +5,7 @@ const nytURL = "https://api.nytimes.com/svc/books/v3/lists/current/";
 const nytGenresURL = "https://api.nytimes.com/svc/books/v3/lists/names.json?";
 const googleKey = "AIzaSyD9OPopSiOT_qHbXpC9_MBK-1d83kvVVIs";
 const googleURL = "https://www.googleapis.com/books/v1/volumes?";
+let image = $(responseJson.results.books[i].book_image);
 
 function formatQueryParams(params) {
   const queryItems = Object.keys(params).map((key) => `${key}=${params[key]}`);
@@ -14,6 +15,10 @@ function formatQueryParams(params) {
 function displayDetails(responseJson) {
   console.log(responseJson);
   $("#results-list").empty();
+  // $("#container").empty();
+  // $("#container").append(
+  //   `<image src="${responseJson.items[0].volumeInfo.imageLinks.thumbnail}>"`
+  // );
   $("#results-list").append(
     `<li><h2>${responseJson.items[0].volumeInfo.title} by: <li>${responseJson.items[0].volumeInfo.authors}</h2></li>`
   );
