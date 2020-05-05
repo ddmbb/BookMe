@@ -2,7 +2,7 @@
 
 const apiKey = "hPnejYCjDvhmMhTbYECuUq15682jUtDm";
 const nytURL = "https://api.nytimes.com/svc/books/v3/lists/current/";
-var nytGenresURL = "https://api.nytimes.com/svc/books/v3/lists/names.json?";
+const nytGenresURL = "https://api.nytimes.com/svc/books/v3/lists/names.json?";
 const googleKey = "AIzaSyD9OPopSiOT_qHbXpC9_MBK-1d83kvVVIs";
 const googleURL = "https://www.googleapis.com/books/v1/volumes?";
 
@@ -63,7 +63,6 @@ $("#results-list").on("click", "img", function () {
   let isbn13 = $(this).attr("value");
   console.log(isbn13);
   getDetails(isbn13);
-  /*$("#js-list-name").addClass("hidden");*/
 });
 
 $("#results").removeClass("hidden");
@@ -90,33 +89,25 @@ function getList(listName) {
     });
 }
 
-function watchForm() {
-  $("#js-list-name").on("click", "button", function () {
-    event.preventDefault();
-    var listName = this.value;
-    getList(listName);
-    /*THIS WILL HIDE LIST SELECTION */
-    /* $("#js-list-name").addClass("hidden"); */
-  });
-
-  function displayGenres(responseJson) {
-    console.log(responseJson);
-    $("#results-list").empty();
-    for (let i = 0; i < responseJson.results.display_name.length; i++) {
-      $("#results-list").append`<li>${responseJson.results[i].display_name}>`;
-    }
+function displayGenres(responseJson) {
+  console.log(responseJson);
+  $("#results-list").empty();
+  for (let i = 0; i < responseJson.results.length; i++) {
+    $("#results-list").append(
+      `<li><a href="${responseJson.results[i].list_name_encoded}">${responseJson.results[i].display_name}</a></li>`
+    );
   }
-
-  // $("#results-list").on("click", "img", function () {
-  //   event.preventDefault();
-  //   let isbn13 = $(this).attr("value");
-  //   console.log(isbn13);
-  //   getDetails(isbn13);
-  //   /*$("#js-list-name").addClass("hidden");*/
-  // });
-
-  $("#results").removeClass("hidden");
 }
+
+$("#results-list").on("click", "a", function () {
+  event.preventDefault();
+  let listName = $(this).attr("href");
+  console.log(listName);
+  getList(listName);
+  /*$("#js-list-name").addClass("hidden");*/
+});
+
+$("#results").removeClass("hidden");
 
 function getGenres(nytGenresURL) {
   const params = {
@@ -143,10 +134,7 @@ function getGenres(nytGenresURL) {
 
 $("#start").on("click", function () {
   event.preventDefault();
-  console.log("click");
   $("#start").addClass("hidden");
   $("#js-list-name").removeClass("hidden");
   getGenres(nytGenresURL);
 });
-
-$(watchForm);
