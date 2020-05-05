@@ -5,6 +5,7 @@ const nytURL = "https://api.nytimes.com/svc/books/v3/lists/current/";
 var nytGenresURL = "https://api.nytimes.com/svc/books/v3/lists/names.json?";
 const googleKey = "AIzaSyD9OPopSiOT_qHbXpC9_MBK-1d83kvVVIs";
 const googleURL = "https://www.googleapis.com/books/v1/volumes?";
+let image = $(responseJson.results.books[i].book_image);
 
 function formatQueryParams(params) {
   const queryItems = Object.keys(params).map((key) => `${key}=${params[key]}`);
