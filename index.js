@@ -99,4 +99,11 @@ function watchForm() {
   });
 }
 
+$("#start").on("click", "button", function () {
+  event.preventDefault();
+  console.log("click");
+  $("#start").addClass("hidden");
+  $("#js-list-name").removeClass("hidden");
+});
+
 $(watchForm);
