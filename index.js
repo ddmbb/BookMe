@@ -10,30 +10,19 @@ function formatQueryParams(params) {
   return queryItems.join("&");
 }
 
-/* display individual book details */
-
 function displayDetails(responseJson) {
   console.log(responseJson);
   $("#results-list").empty();
   $("#results-list").append(
     `<li><h2>${responseJson.items[0].volumeInfo.title} by: <li>${responseJson.items[0].volumeInfo.authors}</h2></li>`
   );
-  let preview =
+  let previewISBN =
     responseJson.items[0].volumeInfo.industryIdentifiers[0].identifier;
-
-  console.log(preview);
-
-  //google.books.load();
-  function initialize() {
-    var viewer = new google.books.DefaultViewer(
-      document.getElementById("viewerCanvas")
-    );
-    viewer.load("isbn: " + preview);
-    $("viewerCanvas").removeClass("hidden");
-  }
-  google.books.setOnLoadCallback(initialize);
+  let previewURL = responseJson.items[0].volumeInfo.previewLink;
+  console.log(previewISBN);
+  console.log(previewURL);
 }
-/*fetch individual book details from google books*/
+
 function getDetails(isbn13) {
   const params = {
     key: googleKey,
@@ -78,7 +67,6 @@ $("#results-list").on("click", "img", function () {
 
 $("#results").removeClass("hidden");
 
-/*fetch list */
 function getList(listName) {
   const params = {
     "api-key": apiKey,
@@ -110,4 +98,5 @@ function watchForm() {
     /* $("#js-list-name").addClass("hidden"); */
   });
 }
+
 $(watchForm);

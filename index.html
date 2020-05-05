@@ -9,10 +9,12 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <div class="container">
+    <header class="title">
         <h1>New York Times Best Sellers</h1>
-
-        <ul id="js-list-name">
+    </header>
+    <div class="container">
+        <button id="start" type="button" class="submit">submit</button>
+        <ul id="js-list-name" class="hidden">
             <li><button type="button" value="combined-print-and-e-book-fiction">Combined Print & E-Book Fiction</button></li>
             <li><button type="button" value="combined-print-and-e-book-nonfiction">Combined Print & E-Book Nonfiction</button></li>
             <li><button type="button" value="hardcover-fiction">Hardcover Fiction</button></li>
@@ -21,15 +23,9 @@
 
         <p id="js-error-message" class="error-message"></p>
         <section id="results" class="hidden">
-          <h2>Search results</h2>
-          <ul id="results-list">
-          </ul>
-          <ul id="viewerCanvas" class="hidden">
-        </ul>
+          <ul id="results-list"></ul>
         </section>
     </div>
-    <script type="text/javascript" src="https://www.google.com/books/jsapi.js"></script>
-    <script type="text/javascript">google.books.load();</script>
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script src="index.js"></script>
 </body>
