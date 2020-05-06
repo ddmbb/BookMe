@@ -7,13 +7,14 @@
     <title>NYTimes Best Sellers</title>
     <link rel="shortcut icon" href="#">
     <link rel="stylesheet" href="index.css">
+    <script type="text/javascript" src="//books.google.com/books/previewlib.js"></script>
 </head>
 <body>
     <header class="title">
         <h1>New York Times Best Sellers</h1>
     </header>
     <div class="container">
-        <button id="start" type="button" class="submit">submit</button>
+        <button id="start" type="button" class="submit">Start</button>
         <ul id="js-list-name" class="hidden">
         </ul>
 
@@ -21,6 +22,8 @@
         <section id="results" class="hidden">
           <ul id="results-list"></ul>
         </section>
+    </div>
+    <div id="viewer" class="hidden">
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script src="index.js"></script>

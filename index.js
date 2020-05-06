@@ -5,7 +5,6 @@ const nytURL = "https://api.nytimes.com/svc/books/v3/lists/current/";
 const nytGenresURL = "https://api.nytimes.com/svc/books/v3/lists/names.json?";
 const googleKey = "AIzaSyD9OPopSiOT_qHbXpC9_MBK-1d83kvVVIs";
 const googleURL = "https://www.googleapis.com/books/v1/volumes?";
-let image = $(responseJson.results.books[i].book_image);
 
 function formatQueryParams(params) {
   const queryItems = Object.keys(params).map((key) => `${key}=${params[key]}`);
@@ -14,19 +13,24 @@ function formatQueryParams(params) {
 
 function displayDetails(responseJson) {
   console.log(responseJson);
-  $("#results-list").empty();
-  // $("#container").empty();
-  // $("#container").append(
-  //   `<image src="${responseJson.items[0].volumeInfo.imageLinks.thumbnail}>"`
-  // );
-  $("#results-list").append(
-    `<li><h2>${responseJson.items[0].volumeInfo.title} by: <li>${responseJson.items[0].volumeInfo.authors}</h2></li>`
+  $("#results-list").empty().removeClass("hidden").append(
+    `<li><image src="${responseJson.items[0].volumeInfo.imageLinks.thumbnail}"><button id="preview" type="button">Preview</button></li>
+    <li>${responseJson.items[0].volumeInfo.description}</li>`
   );
-  let previewISBN =
-    responseJson.items[0].volumeInfo.industryIdentifiers[0].identifier;
-  let previewURL = responseJson.items[0].volumeInfo.previewLink;
-  console.log(previewISBN);
-  console.log(previewURL);
+  $("#results-list").on("click", "button", function () {
+    console.log("click");
+    event.preventDefault();
+    $("#results-list")
+      .empty()
+      .append(
+        `<li><script type="text/javascript">GBS_insertEmbeddedViewer(${responseJson.items[0].volumeInfo.industryIdentifiers[0].identifier}, 600, 500);</script></li>`
+      );
+  });
+  // $("#viewer") this erases all other info
+  //   .removeClass("hidden")
+  //   .append(
+  //     `<li><script type="text/javascript">GBS_insertPreviewButtonPopup(${responseJson.items[0].volumeInfo.industryIdentifiers[0].identifier});</script></li>`
+  //   );
 }
 
 function getDetails(isbn13) {
@@ -109,7 +113,6 @@ $("#results-list").on("click", "a", function () {
   let listName = $(this).attr("href");
   console.log(listName);
   getList(listName);
-  /*$("#js-list-name").addClass("hidden");*/
 });
 
 $("#results").removeClass("hidden");
