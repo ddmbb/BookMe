@@ -21,7 +21,7 @@ function displayDetails(responseJson) {
   $("#covers-list").addClass("hidden");
   $("#details-list").removeClass("hidden").append(
     `<li><image src="${responseJson.items[0].volumeInfo.imageLinks.thumbnail}"></li>
-    <li><a href="${responseJson.items[0].volumeInfo.previewLink}" value="Preview">Preview</a></li>
+    <li class="preview"><a href="${responseJson.items[0].volumeInfo.previewLink}" value="Preview" class="preview">Preview</a></li>
     <li>${responseJson.items[0].volumeInfo.description}</li>`
   );
 }
