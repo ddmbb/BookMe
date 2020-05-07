@@ -13,33 +13,18 @@ function formatQueryParams(params) {
 
 function displayDetails(responseJson) {
   console.log(responseJson);
-  $("#subhead")
+  $("#navigate")
     .empty()
     .append(
       `<p> \"${responseJson.items[0].volumeInfo.title}\" by: ${responseJson.items[0].volumeInfo.authors[0]}</p>`
     );
   $("#covers-list").addClass("hidden");
-  $("#results-list").empty().removeClass("hidden").append(
+  $("#details-list").removeClass("hidden").append(
     `<li><image src="${responseJson.items[0].volumeInfo.imageLinks.thumbnail}"></li>
-     <li><button id="preview" type="button">Preview</button></li>
+    <li><a href="${responseJson.items[0].volumeInfo.previewLink}" value="Preview">Preview</a></li>
     <li>${responseJson.items[0].volumeInfo.description}</li>`
   );
-  $("#results-list").on("click", "button", function () {
-    console.log("click");
-    event.preventDefault();
-    $("#results-list")
-      .empty()
-      .append(
-        `<li><script type="text/javascript">GBS_insertEmbeddedViewer(${responseJson.items[0].volumeInfo.industryIdentifiers[0].identifier}, 600, 500);</script></li>`
-      );
-  });
-  // $("#viewer") this erases all other info
-  //   .removeClass("hidden")
-  //   .append(
-  //     `<li><script type="text/javascript">GBS_insertPreviewButtonPopup(${responseJson.items[0].volumeInfo.industryIdentifiers[0].identifier});</script></li>`
-  //   );
 }
-
 function getDetails(isbn13) {
   const params = {
     key: googleKey,
@@ -64,7 +49,7 @@ function getDetails(isbn13) {
 
 function displayList(responseJson) {
   console.log(responseJson);
-  $("#subhead").empty().append(`<p>${responseJson.results.display_name}</p>`);
+  $("#navigate").empty().append(`<p>${responseJson.results.display_name}</p>`);
   $("#results-list").addClass("hidden");
   $("#covers-list").removeClass("hidden");
   for (let i = 0; i < responseJson.results.books.length; i++) {
@@ -104,7 +89,7 @@ function getList(listName) {
 
 function displayGenres(responseJson) {
   console.log(responseJson);
-  $("#subhead").removeClass("hidden").append(`<p>Genres</p>`);
+  $("#navigate").empty().append(`<p>Genres</p>`);
   $("#results-list").empty();
   for (let i = 0; i < responseJson.results.length; i++) {
     $("#results-list").append(

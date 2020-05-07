@@ -8,34 +8,33 @@
 <link rel="shortcut icon" href="#">
 <link rel="stylesheet" href="index.css">
 <link href="https://fonts.googleapis.com/css2?family=Lato&family=Neuton:wght@400;700;800&display=swap" rel="stylesheet">
-<script type="text/javascript" src="//books.google.com/books/previewlib.js"></script>
 </head>
 
 <body>
     <header class="title">
         <img src="images/nytLogo.png" alt="nyt logo">
-            <section id="subhead" class="hidden"> </section>
+            <section id="navigate">
+                <p>Best Sellers</p>
+            </section>
     </header>
     <div class="container">
         <div id="splash">
-            </section>
             <p>
-                Welcome to my New York Times Best Sellers book preview
+                Welcome to my New York Times Best Sellers preview
                 application. After pressing "Enter" below, please select a genre
                 that interests you. This will pull up the most recently published
                 best sellers list. From here you can click a book cover in order to
                 view additional information and preview the book. Enjoy!
             </p>
             <ul id="start">
-                <li><a href="" value="start">Start</a></li>
+                <li><a href="">Start</a></li>
             </ul>
         </div>
         <p id="js-error-message" class="error-message"></p>
         <section id="results" class="hidden">
-            <ul id="results-list">
-            </ul>
-            <ul id="covers-list" class="hidden">
-            </ul>
+            <ul id="results-list"></ul>
+            <ul id="covers-list" class="hidden"></ul>
+            <ul id="details-list" class="hidden"></ul>
         </section>
     </div>
     <div id="viewer" class="hidden">
