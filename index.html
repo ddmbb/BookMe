@@ -1,31 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>NYTimes Best Sellers</title>
-    <link rel="shortcut icon" href="#">
-    <link rel="stylesheet" href="index.css">
-    <script type="text/javascript" src="//books.google.com/books/previewlib.js"></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>NYTimes Best Sellers</title>
+<link rel="shortcut icon" href="#">
+<link rel="stylesheet" href="index.css">
+<link href="https://fonts.googleapis.com/css2?family=Lato&family=Neuton:wght@400;700;800&display=swap" rel="stylesheet">
+<script type="text/javascript" src="//books.google.com/books/previewlib.js"></script>
 </head>
+
 <body>
     <header class="title">
-        <h1>New York Times Best Sellers</h1>
+        <img src="images/nytLogo.png" alt="nyt logo">
+            <section id="subhead" class="hidden"> </section>
     </header>
     <div class="container">
-        <button id="start" type="button" class="submit">Start</button>
-        <ul id="js-list-name" class="hidden">
-        </ul>
-
+        <div id="splash">
+            </section>
+            <p>
+                Welcome to my New York Times Best Sellers book preview
+                application. After pressing "Enter" below, please select a genre
+                that interests you. This will pull up the most recently published
+                best sellers list. From here you can click a book cover in order to
+                view additional information and preview the book. Enjoy!
+            </p>
+            <ul id="start">
+                <li><a href="" value="start">Start</a></li>
+            </ul>
+        </div>
         <p id="js-error-message" class="error-message"></p>
         <section id="results" class="hidden">
-          <ul id="results-list"></ul>
+            <ul id="results-list">
+            </ul>
+            <ul id="covers-list" class="hidden">
+            </ul>
         </section>
     </div>
     <div id="viewer" class="hidden">
     </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script src="index.js"></script>
 </body>
+
 </html>

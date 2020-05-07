@@ -3,18 +3,98 @@ font-family: 'Lato', sans-serif; <---headlines */
 
 * {
   box-sizing: border-box;
+  text-decoration: none;
+  list-style-type: none;
+}
+
+a {
+  color: black;
+  list-style-type: none;
 }
 
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: "neuton", serif;
 }
 
-#js-list-name li {
-  list-style-type: none;
+.title img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90vw;
+  max-width: 425px;
+  margin-bottom: 3vh;
 }
 
-#results li {
+.title p {
+  font-family: "neuton", serif;
+  font-size: 1.4em;
+  display: block;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2vh;
+  margin-bottom: 3vh;
+  padding-bottom: 0.5vh;
+  border-top: 1px solid rgb(197, 197, 197);
+  border-bottom: 4px double rgb(197, 197, 197);
+  width: 92vw;
+  max-width: 600px;
+}
+
+div {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.container p {
+  display: inline-block;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0px;
+}
+
+#start {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 25px;
+  text-align: center;
+  padding: 0;
+  width: 145px;
+}
+
+#start li {
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  border-bottom: 1px solid rgb(197, 197, 197);
+  border-top: 1px solid rgb(197, 197, 197);
+}
+
+#results-list {
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+#results-list li {
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  border-bottom: 1px solid rgb(197, 197, 197);
+  min-width: 320px;
+}
+
+#covers-list {
   list-style-type: none;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+#covers-list li {
+  padding-top: 1.5vh;
+  padding-bottom: 1vh;
+  border-bottom: 1px solid rgb(197, 197, 197);
 }
 
 button,
@@ -37,4 +117,21 @@ button:hover {
 
 .hidden {
   display: none;
+}
+
+@media only screen and (min-width: 640px) {
+  .title p {
+    padding-top: 5px;
+    padding-bottom: 7px;
+    font-size: 1.5em;
+  }
+
+  #results-list li {
+    max-width: 16vw;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media only screen and (min-width: 450px) {
 }

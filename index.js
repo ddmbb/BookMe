@@ -13,8 +13,15 @@ function formatQueryParams(params) {
 
 function displayDetails(responseJson) {
   console.log(responseJson);
+  $("#subhead")
+    .empty()
+    .append(
+      `<p> \"${responseJson.items[0].volumeInfo.title}\" by: ${responseJson.items[0].volumeInfo.authors[0]}</p>`
+    );
+  $("#covers-list").addClass("hidden");
   $("#results-list").empty().removeClass("hidden").append(
-    `<li><image src="${responseJson.items[0].volumeInfo.imageLinks.thumbnail}"><button id="preview" type="button">Preview</button></li>
+    `<li><image src="${responseJson.items[0].volumeInfo.imageLinks.thumbnail}"></li>
+     <li><button id="preview" type="button">Preview</button></li>
     <li>${responseJson.items[0].volumeInfo.description}</li>`
   );
   $("#results-list").on("click", "button", function () {
@@ -42,8 +49,6 @@ function getDetails(isbn13) {
   const queryString = formatQueryParams(params);
   const url = googleURL + queryString;
 
-  console.log(url);
-
   fetch(url)
     .then((response) => {
       if (response.ok) {
@@ -59,18 +64,19 @@ function getDetails(isbn13) {
 
 function displayList(responseJson) {
   console.log(responseJson);
-  $("#results-list").empty();
+  $("#subhead").empty().append(`<p>${responseJson.results.display_name}</p>`);
+  $("#results-list").addClass("hidden");
+  $("#covers-list").removeClass("hidden");
   for (let i = 0; i < responseJson.results.books.length; i++) {
-    $("#results-list").append(
+    $("#covers-list").append(
       `<li><img src= ${responseJson.results.books[i].book_image} alt="cover" value= ${responseJson.results.books[i].primary_isbn13}>`
     );
   }
 }
 
-$("#results-list").on("click", "img", function () {
+$("#covers-list").on("click", "img", function () {
   event.preventDefault();
   let isbn13 = $(this).attr("value");
-  console.log(isbn13);
   getDetails(isbn13);
 });
 
@@ -82,8 +88,6 @@ function getList(listName) {
   };
   const queryString = formatQueryParams(params);
   const url = nytURL + listName + ".json?" + queryString;
-
-  console.log(url);
 
   fetch(url)
     .then((response) => {
@@ -100,6 +104,7 @@ function getList(listName) {
 
 function displayGenres(responseJson) {
   console.log(responseJson);
+  $("#subhead").removeClass("hidden").append(`<p>Genres</p>`);
   $("#results-list").empty();
   for (let i = 0; i < responseJson.results.length; i++) {
     $("#results-list").append(
@@ -111,7 +116,6 @@ function displayGenres(responseJson) {
 $("#results-list").on("click", "a", function () {
   event.preventDefault();
   let listName = $(this).attr("href");
-  console.log(listName);
   getList(listName);
 });
 
@@ -124,8 +128,6 @@ function getGenres(nytGenresURL) {
   };
   const queryString = formatQueryParams(params);
   const url = nytGenresURL + queryString;
-
-  console.log(url);
 
   fetch(url)
     .then((response) => {
@@ -142,7 +144,6 @@ function getGenres(nytGenresURL) {
 
 $("#start").on("click", function () {
   event.preventDefault();
-  $("#start").addClass("hidden");
-  $("#js-list-name").removeClass("hidden");
+  $("#splash").addClass("hidden");
   getGenres(nytGenresURL);
 });
