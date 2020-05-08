@@ -5,6 +5,7 @@ const nytURL = "https://api.nytimes.com/svc/books/v3/lists/current/";
 const nytGenresURL = "https://api.nytimes.com/svc/books/v3/lists/names.json?";
 const googleKey = "AIzaSyD9OPopSiOT_qHbXpC9_MBK-1d83kvVVIs";
 const googleURL = "https://www.googleapis.com/books/v1/volumes?";
+let stateObj = "";
 
 function formatQueryParams(params) {
   const queryItems = Object.keys(params).map((key) => `${key}=${params[key]}`);
@@ -21,7 +22,7 @@ function displayDetails(responseJson) {
   $("#covers-list").addClass("hidden");
   $("#details-list").removeClass("hidden").append(
     `<li><image src="${responseJson.items[0].volumeInfo.imageLinks.thumbnail}"></li>
-    <li class="preview"><a href="${responseJson.items[0].volumeInfo.previewLink}" value="Preview" class="preview">Preview</a></li>
+    <li class="preview"><a href="${responseJson.items[0].volumeInfo.previewLink}" target="_blank" value="Preview" class="preview">Preview</a></li>
     <li>${responseJson.items[0].volumeInfo.description}</li>`
   );
 }
@@ -63,6 +64,8 @@ $("#covers-list").on("click", "img", function () {
   event.preventDefault();
   let isbn13 = $(this).attr("value");
   getDetails(isbn13);
+  stateObj = "details";
+  window.history.pushState(stateObj, "page 4", "/details");
 });
 
 $("#results").removeClass("hidden");
@@ -90,7 +93,6 @@ function getList(listName) {
 function displayGenres(responseJson) {
   console.log(responseJson);
   $("#navigate").empty().append(`<p>Genres</p>`);
-  $("#results-list").empty();
   for (let i = 0; i < responseJson.results.length; i++) {
     $("#results-list").append(
       `<li><a href="${responseJson.results[i].list_name_encoded}">${responseJson.results[i].display_name}</a></li>`
@@ -102,6 +104,8 @@ $("#results-list").on("click", "a", function () {
   event.preventDefault();
   let listName = $(this).attr("href");
   getList(listName);
+  stateObj = "list";
+  window.history.pushState(stateObj, "page 3", "/list");
 });
 
 $("#results").removeClass("hidden");
@@ -131,4 +135,22 @@ $("#start").on("click", function () {
   event.preventDefault();
   $("#splash").addClass("hidden");
   getGenres(nytGenresURL);
+  stateObj = "genre";
+  window.history.pushState(stateObj, "page 2", "/genre");
+});
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function () {
+    stateObj = "welcome";
+    window.history.pushState(stateObj, "page 1", "/welcome");
+  },
+  false
+);
+
+window.addEventListener("popstate", function (e) {
+  if (history.state === "genre") {
+    $("#results-list").addClass("hidden");
+    $("#splash").removeClass("hidden");
+  }
 });
