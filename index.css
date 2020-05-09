@@ -127,6 +127,7 @@ div {
     0px 0px rgb(197, 197, 197);
   -webkit-transform: translateX(-4px);
   transform: translateX(-4px);
+  cursor: pointer;
 }
 
 .preview:hover {

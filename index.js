@@ -174,3 +174,7 @@ window.addEventListener("popstate", function (e) {
     $("#navGenre").addClass("hidden");
   }
 });
+
+window.onbeforeunload = function () {
+  window.scrollTo(0, 0);
+};
