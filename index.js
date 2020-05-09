@@ -14,13 +14,15 @@ function formatQueryParams(params) {
 
 function displayDetails(responseJson) {
   console.log(responseJson);
-  $("#navigate")
+  $("#navList").addClass("hidden");
+  $("#navDetails")
     .empty()
+    .removeClass("hidden")
     .append(
       `<p> \"${responseJson.items[0].volumeInfo.title}\" by: ${responseJson.items[0].volumeInfo.authors[0]}</p>`
     );
   $("#covers-list").addClass("hidden");
-  $("#details-list").removeClass("hidden").append(
+  $("#details-list").empty().removeClass("hidden").append(
     `<li><image src="${responseJson.items[0].volumeInfo.imageLinks.thumbnail}"></li>
     <li class="preview"><a href="${responseJson.items[0].volumeInfo.previewLink}" target="_blank" value="Preview" class="preview">Preview</a></li>
     <li>${responseJson.items[0].volumeInfo.description}</li>`
@@ -50,9 +52,13 @@ function getDetails(isbn13) {
 
 function displayList(responseJson) {
   console.log(responseJson);
-  $("#navigate").empty().append(`<p>${responseJson.results.display_name}</p>`);
+  $("#navGenre").addClass("hidden");
+  $("#navList")
+    .empty()
+    .removeClass("hidden")
+    .append(`<p>${responseJson.results.display_name}</p>`);
   $("#results-list").addClass("hidden");
-  $("#covers-list").removeClass("hidden");
+  $("#covers-list").empty().removeClass("hidden");
   for (let i = 0; i < responseJson.results.books.length; i++) {
     $("#covers-list").append(
       `<li><img src= ${responseJson.results.books[i].book_image} alt="cover" value= ${responseJson.results.books[i].primary_isbn13}>`
@@ -92,7 +98,9 @@ function getList(listName) {
 
 function displayGenres(responseJson) {
   console.log(responseJson);
-  $("#navigate").empty().append(`<p>Genres</p>`);
+  $("#navigate").addClass("hidden");
+  $("#navGenre").removeClass("hidden");
+  $("#results-list").empty().removeClass("hidden");
   for (let i = 0; i < responseJson.results.length; i++) {
     $("#results-list").append(
       `<li><a href="${responseJson.results[i].list_name_encoded}">${responseJson.results[i].display_name}</a></li>`
@@ -107,8 +115,6 @@ $("#results-list").on("click", "a", function () {
   stateObj = "list";
   window.history.pushState(stateObj, "page 3", "/list");
 });
-
-$("#results").removeClass("hidden");
 
 function getGenres(nytGenresURL) {
   const params = {
@@ -148,9 +154,23 @@ document.addEventListener(
   false
 );
 
+//backwards navigation
 window.addEventListener("popstate", function (e) {
+  e.preventDefault();
   if (history.state === "genre") {
+    $("#covers-list").addClass("hidden");
+    $("#results-list").removeClass("hidden");
+    $("#navGenre").removeClass("hidden");
+    $("#navList").addClass("hidden");
+  } else if (history.state === "list") {
+    $("#details-list").addClass("hidden");
+    $("#covers-list").removeClass("hidden");
+    $("#navList").removeClass("hidden");
+    $("#navDetails").addClass("hidden");
+  } else if (history.state === "welcome") {
     $("#results-list").addClass("hidden");
     $("#splash").removeClass("hidden");
+    $("#navigate").removeClass("hidden");
+    $("#navGenre").addClass("hidden");
   }
 });
